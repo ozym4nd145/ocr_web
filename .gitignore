@@ -58,4 +58,6 @@ typings/
 .env
 
 *.swp
-uploads
+uploads/
+db/
+ignore/
