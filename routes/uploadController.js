@@ -35,7 +35,7 @@ function processPDF(file,callback)
   console.log(base_cmd);
   var command = base_cmd+file.path+" "+file.path;
   cmd.get(command,function(err,data,stderr){
-  //cmd.get('sleep 2 && echo '+file.path,function(err,data,stderr){
+  //cmd.get('sleep 1 && echo '+file.path,function(err,data,stderr){
     if(err){
       console.log("err: "+err);
     }
@@ -93,6 +93,7 @@ function uploadFile(file,cb)
 
 function verifyUser(username, password)
 {
+  //return true;
   if(username in userDB && userDB[username]==password)
     return true;
   return false;

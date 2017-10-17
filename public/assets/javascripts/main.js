@@ -28,8 +28,8 @@ function sendData()
 
 function success_msg(result)
 {
-  var message = result.message;
   x = result;
+  var message = result.message;
   $('#msg-success').fadeIn();
   $('#msg-success').text(message);
   $('#submit').prop('disabled',false);
@@ -39,8 +39,8 @@ function success_msg(result)
 
 function error_msg(result)
 {
-  var message = result.responseJSON.message;
   x = result;
+  var message = result.responseJSON.message;
   $('#msg-error').fadeIn();
   $('#msg-error').text(message);
   $('#submit').prop('disabled',false);
