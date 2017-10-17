@@ -52,7 +52,7 @@ function error_msg(result)
 function start_state(){
   $('#upload-bar').fadeOut();
   $('#msg-success').fadeOut();
-  $('#msg-danger').fadeOut();
+  $('#msg-error').fadeOut();
   $('#submit').prop('disabled',false);
 }
 
