@@ -1,42 +1,34 @@
-const AWS = require('aws-sdk');
-const SES = new AWS.SES({
-  accessKeyID: process.env.ACCESS_KEY,
-  secretAccessKey: process.env.SECRET_KEY,
-  region: 'us-east-1',
-  endpoint: new AWS.Endpoint('https://email.us-east-1.amazonaws.com')
-});
+'use strict';
+const nodemailer = require('nodemailer');
+
+let smtpConfig = {
+  host: "smtp.sendgrid.net",
+  port: 465,
+  secure: true,
+  auth:{
+    user: process.env.SENDGRID_USER,
+    pass: process.env.SENDGRID_PASS,
+  }
+}
+
+let transporter = nodemailer.createTransport(smtpConfig);
 
 function sendMail(email,link,callback){
-  const params = {
-    Destination : {
-      ToAddresses: [email]
-    },
-    Message: {
-      Body: {
-        Html: {
-          Data: "Hey!<br/><br/>Your file has been processed!<br/>You can find it <a href=\""+link+"\">here</a><br/>"+
+  let email_params = {
+    from: 'web_ocr@ozym4nd145.me',
+    to: email,
+    subject: "WebOCR: File Ready",
+    html: "Hey!<br/><br/>Your file has been processed!<br/>You can find it <a href=\""+link+"\">here</a><br/>"+
                 "Thanks for using our service.<br/><br/>Regards,<br/>ozym4nd145",
-        },
-      },
-      Subject: {
-        Data: "WebOCR: File Ready"
-      }
-    },
-    //Source: "WebOCR \<webocr@ozym4nd145.me\>",
-    Source: "Suyash \<ozym4nd145@outlook.com\>",
   };
-  SES.sendEmail(params,function(err,data){
-    if(err){
-      return callback(err);
-      /*
-      setTimeout(function(){
-        sendMail(email,link,cb);
-      },300);
-      */
+  transporter.sendMail(email_params,function(err,info){
+    if (err){
+      console.log(err);
+      callback(err);
     }
     else {
-      console.log("Email sent to: %s",email);
-      return callback();
+      console.log('Message sent: ' + info.response);
+      callback();
     }
   });
 }
