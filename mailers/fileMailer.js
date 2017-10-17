@@ -6,10 +6,10 @@ const SES = new AWS.SES({
   endpoint: new AWS.Endpoint('https://email.us-east-1.amazonaws.com')
 });
 
-function sendMail(email,link,cb){
+function sendMail(email,link,callback){
   const params = {
     Destination : {
-      ToAddress: [email]
+      ToAddresses: [email]
     },
     Message: {
       Body: {
@@ -26,13 +26,16 @@ function sendMail(email,link,cb){
   };
   SES.sendEmail(params,function(err,data){
     if(err){
+      return callback(err);
+      /*
       setTimeout(function(){
         sendMail(email,link,cb);
       },300);
+      */
     }
     else {
       console.log("Email sent to: %s",email);
-      cb();
+      return callback();
     }
   });
 }

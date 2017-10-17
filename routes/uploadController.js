@@ -52,7 +52,7 @@ function postProcessing(file)
       console.log(err);
     }
     else{
-      fileMailer.sendMail(file.email,link);
+      fileMailer.sendMail(file.email,link,function(err){if(err){console.log("ERROR MAIL: "+err);}});
     }
   });
 }
@@ -87,7 +87,7 @@ function uploadFile(file,cb)
     else{
       cb(null,link);
     }
-    fs.unlink(file.path);
+    fs.unlink(file.path,(err) => {if (err) throw err;});
   });
 }
 
