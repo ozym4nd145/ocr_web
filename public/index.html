@@ -4,33 +4,82 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hindi OCR</title>
+    <title>Web OCR</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel='stylesheet' href='/assets/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Hindi OCR</h1>
-    <p>Welcome to Hindi OCR</p>
-    <form enctype="multipart/form-data" id="form">
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username"><br>
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password"><br>
-      <label for="email">Email</label>
-      <input type="text" name="email" id="email"><br>
-      <label for="file">Select Files:</label>
-      <input type="file" name="files" id="file" multiple><br>
-      <input type="checkbox" name="eng" value="eng" id="english">
-      <label for="english">English</label>
-      <input type="checkbox" name="hin" value="hin" id="hindi">
-      <label for="hindi">Hindi</label>
-      <input type="checkbox" name="equ" value="equ" id="equation">
-      <label for="equation">Equation</label>
-      <btn class="btn btn-primary" type="submit" name="submit"
-      id="submit">Submit</btn>
-    </form>
-    <script src="/assets/javascripts/main.js"></script>
+    <div class='container-fluid'>
+      <div class='jumbotron' id="heading">
+        <h1>Web OCR</h1>
+        <h5>A simple multilingual ocr for pdf documents</h5>
+      </div>
+      <div class='container'>
+        <div class='row'>
+          <div class='col-md-6 ml-auto mr-auto container' id="form-container">
+            <div class="alert alert-success fade show" style="display:none"
+              role="alert" id="msg-success">
+              This is just a test.
+            </div>
+            <div class="alert alert-danger fade show" style="display: none"
+              role="alert" id="msg-error">
+              This is just a test.
+            </div>
+            <form enctype="multipart/form-data" id="submit_form">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" name="username" id="username"
+                  placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" id="password" placeholder="Password"><br>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" id="email"
+                placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="file">Select Files:</label>
+                <input class="form-control-file" type="file" name="files" id="file" multiple>
+              </div>
+              <div class="form-group">
+                <label>Select Languages in the document:</label><br>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="eng" value="eng" id="english">
+                    English
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="hin" value="hin" id="hindi">
+                    Hindi
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="equ" value="equ" id="equation">
+                    Equation
+                  </label>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="button"
+              id="submit">Submit</button>
+              <div class="progress">
+                <div class="progress-bar-striped progress-bar-success" role="progressbar"
+                                                               style="width:0%;
+                                                               display:none"
+                                                               id="upload-bar">0%
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <script
 			  src="https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -40,5 +89,6 @@
   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
   integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
 crossorigin="anonymous"></script>
+    <script src="/assets/javascripts/main.js"></script>
   </body>
 </html>
