@@ -10,7 +10,6 @@ const processQueue = async.queue(processPDF,2);
 const path = require('path');
 
 const userDB = JSON.parse(fs.readFileSync(path.resolve(__dirname,'../db/users.json'), 'utf8'));
-//const userDB = {a: "b"};
 
 var storage = multer.diskStorage({
   destination: 'uploads/',
@@ -20,8 +19,6 @@ var upload = multer({storage: storage,limits:{fileSize:104857600}, fileFilter: p
 function pdfFilter (req, file, cb){
   var type = file.mimetype;
   var typeArray = type.split("/");
-  console.log(typeArray);
-  //cb(null, true);
  
   if (typeArray[1] == "pdf") {
     cb(null, true);
@@ -37,8 +34,8 @@ function processPDF(file,callback)
   var base_cmd="ocrmypdf -l "+file.language+" --force-ocr --tesseract-oem 1 --deskew --output-type pdf ";
   console.log(base_cmd);
   var command = base_cmd+file.path+" "+file.path;
-  //cmd.get(command,function(err,data,stderr){
-  cmd.get('sleep 2 && echo '+file.path,function(err,data,stderr){
+  cmd.get(command,function(err,data,stderr){
+  //cmd.get('sleep 2 && echo '+file.path,function(err,data,stderr){
     if(err){
       console.log("err: "+err);
     }
