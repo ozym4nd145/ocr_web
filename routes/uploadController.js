@@ -6,7 +6,7 @@ const cmd = require('node-cmd');
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const fileMailer = require('../mailers/fileMailer');
-const processQueue = async.queue(processPDF,2);
+const processQueue = async.queue(processPDF,1);
 const path = require('path');
 
 const userDB = JSON.parse(fs.readFileSync(path.resolve(__dirname,'../db/users.json'), 'utf8'));
