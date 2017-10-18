@@ -50,7 +50,7 @@ function postProcessing(file)
       console.log(err);
     }
     else{
-      fileMailer.sendMail(file.email,link,function(err){if(err){console.log("ERROR MAIL: "+err);}});
+      fileMailer.sendMail(file.email,file.originalname,link,function(err){if(err){console.log("ERROR MAIL: "+err);}});
     }
   });
 }

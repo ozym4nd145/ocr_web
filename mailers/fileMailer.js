@@ -13,11 +13,11 @@ let smtpConfig = {
 
 let transporter = nodemailer.createTransport(smtpConfig);
 
-function sendMail(email,link,callback){
+function sendMail(email,fileName,link,callback){
   let email_params = {
     from: 'web_ocr@ozym4nd145.me',
     to: email,
-    subject: "WebOCR: File Ready",
+    subject: ("WebOCR: Your file "+fileName+" is ready for download"),
     html: "Hey!<br/><br/>Your file has been processed!<br/>You can find it <a href=\""+link+"\">here</a><br/>"+
                 "Thanks for using our service.<br/><br/>Regards,<br/>ozym4nd145",
   };
