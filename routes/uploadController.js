@@ -14,7 +14,7 @@ const destinationPath = path.resolve(__dirname,'../uploads/');
 var storage = multer.diskStorage({
   destination: destinationPath,
 });
-var upload = multer({storage: storage,limits:{fileSize:104857600}, fileFilter: pdfFilter});
+var upload = multer({storage: storage,limits:{fileSize:404857600}, fileFilter: pdfFilter});
 
 function pdfFilter (req, file, cb){
   var type = file.mimetype;

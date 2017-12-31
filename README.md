@@ -38,9 +38,10 @@ PORT                # Port to run webserver on
 ```
 docker run -d -e "PORT=<port>" -e "ACCESS_KEY=<access_key>" \
               -e "SECRET_KEY=<secret_key>" -e "SENDGRID_USER=<user>" \
-              -e "SENDGRID_PASS=<key>" -e "CONFIG=<user db>" ozym4nd145/ocr_web
+              -e "SENDGRID_PASS=<key>" -e "CONFIG=<user db>" \
+              -v <volume dir>:/home/docker/app/uploads ozym4nd145/ocr_web
 ```
 OR
 ```
-docker run -d --env-file -p 3000:3000 <env.list file> ozym4nd145/ocr_web
+docker run -d --env-file <env.list file> -p 3000:3000 -v <volume dir>:/home/docker/app/uploads ozym4nd145/ocr_web
 ```

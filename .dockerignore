@@ -61,3 +61,4 @@ typings/
 uploads/
 db/
 ignore/
+.git/
