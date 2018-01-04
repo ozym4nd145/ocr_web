@@ -6,7 +6,7 @@ const cmd = require('node-cmd');
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const fileMailer = require('../mailers/fileMailer');
-const processQueue = async.queue(processCommand,1);
+const processQueue = async.queue(processCommand,3);
 const path = require('path');
 
 const userDB = JSON.parse(fs.readFileSync(path.resolve(__dirname,'../db/users.json'), 'utf8'));
@@ -110,7 +110,8 @@ router.post('/', upload.any(),function(req, res) {
   if (languages.length == 0)
     return error(res, 400, "Select atleast one language");
   let language = languages.join("+");
-  let base_cmd="ocrmypdf -l "+language+" --force-ocr --clean --tesseract-oem 1 --deskew --output-type pdf ";
+  let ocr_args = process.env.OCR_ARG || "--force-ocr --clean --tesseract-oem 1 --deskew --output-type pdf";
+  let base_cmd="ocrmypdf -l "+language+" "+ocr_args+" ";
 
   if (filesArray.length == 0)
     return error(res, 400, "Upload atleast one file");
