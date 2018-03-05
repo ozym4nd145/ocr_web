@@ -1,4 +1,4 @@
-FROM jbarlow83/ocrmypdf-tess4
+FROM jbarlow83/ocrmypdf-tess4:latest
 MAINTAINER Suyash Agrawal <ozym4nd145@outlook.com>
 USER root
 
