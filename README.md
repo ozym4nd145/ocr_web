@@ -24,11 +24,14 @@ hindi are currently added but other languages can be supported trivially
 * Clone this repository and do `npm install` to install required packages
 * Export the following environment variables:
 ```[bash]
-ACCESS_KEY          # AWS S3 access key
-SECRET_KEY          # AWS S3 secret key
+S3_ACCESS_KEY          # AWS S3 access key
+S3_SECRET_KEY          # AWS S3 secret key
 SENDGRID_USER       # Sendgrid api id
 SENDGRID_PASS       # Sendgrid api key
 PORT                # Port to run webserver on
+S3_BUCKET_NAME      # E.g. webocr
+S3_ENDPOINT         # E.g. https://s3.ap-south-1.amazonaws.com
+S3_REGION           # E.g. ap-south-1
 ```
 
 ## Usage

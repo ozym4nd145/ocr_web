@@ -5,6 +5,7 @@ const async = require('async');
 const cmd = require('node-cmd');
 const AWS = require('aws-sdk');
 const fs = require('fs');
+const url = require('url');
 const fileMailer = require('../mailers/fileMailer');
 const processQueue = async.queue(processCommand,3);
 const path = require('path');
@@ -16,6 +17,17 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage: storage,limits:{fileSize:404857600}, fileFilter: pdfFilter});
 
+const s3Endpoint = process.env.S3_ENDPOINT || "https://s3.ap-south-1.amazonaws.com"
+const s3Region = process.env.S3_REGION || "ap-south-1";
+const key = process.env.S3_ACCESS_KEY;
+const secret = process.env.S3_SECRET_KEY
+AWS.config.update({
+  accessKeyId: key,
+  secretAccessKey: secret,
+  region: s3Region,
+  endpoint: new AWS.Endpoint(s3Endpoint),
+});
+
 function pdfFilter (req, file, cb){
   var type = file.mimetype;
   var typeArray = type.split("/");
@@ -26,7 +38,6 @@ function pdfFilter (req, file, cb){
   }else {
     cb(new Error('Unacceptable file type'));
   } 
- 
 }
 
 function processCommand(file,callback)
@@ -57,25 +68,21 @@ function postProcessing(file)
 
 function uploadFile(file,cb)
 {
-  AWS.config.update({
-    accessKeyId: process.env.ACCESS_KEY,
-    secretAccessKey: process.env.SECRET_KEY,
-    region: "ap-south-1",
-    endpoint: new AWS.Endpoint('https://s3.ap-south-1.amazonaws.com'),
-  });
-  let s3Bucket = new AWS.S3();
+  let s3Bucket = new AWS.S3({signatureVersion: 'v4'});
   let stream = fs.createReadStream(file.path);
-  let key_path = "web_ocr/" + Date.now()+"/"+file.originalname;
+  let key_path = Date.now()+"/"+file.originalname;
+  let bucketName =process.env.S3_BUCKET_NAME || "webocr" ;
   let s3Data = {
     ACL: "public-read",
-    Bucket: 'ozym4nd145',
+    Bucket: bucketName,
     Key: key_path,
     Body: stream,
     ContentType: file.mimetype
   };
+
   s3Bucket.upload(s3Data,function(err,resp) {
-    let link = "https://s3.ap-south-1.amazonaws.com/ozym4nd145/"+key_path;
-    console.log(link);
+    let link = url.resolve(url.resolve(s3Endpoint,bucketName)+"/",key_path);
+    console.log("Uploading "+file.path+" to : "+link);
     if(err) {
       console.log("Error: "+err);
       cb("Error in uploading: "+file.originalname,null);
