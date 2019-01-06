@@ -1,0 +1,1 @@
+docker run -d --env-file ~/Coding/Projects/ocr_web/ignore/env.list -p 3000:3000 -v ~/storage/ocr_web:/home/docker/app/uploads ozym4nd145/ocr_web:1.1

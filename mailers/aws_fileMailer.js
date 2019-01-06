@@ -22,8 +22,8 @@ function sendMail(email,link,callback){
         Data: "WebOCR: File Ready"
       }
     },
-    //Source: "WebOCR \<webocr@ozym4nd145.me\>",
-    Source: "Suyash \<ozym4nd145@outlook.com\>",
+    Source: "WebOCR \<webocr@ozym4nd145.me\>",
+    //Source: "Suyash \<ozym4nd145@outlook.com\>",
   };
   SES.sendEmail(params,function(err,data){
     if(err){
